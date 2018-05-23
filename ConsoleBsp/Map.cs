@@ -9,7 +9,7 @@ namespace ConsoleBsp
   {
     //---------------------------------------------------------------------------------------------
 
-    public IEnumerable<Line2D> Walls { get; } = new List<Line2D>();
+    public IEnumerable<Line2d> Walls { get; } = new List<Line2d>();
 
     //---------------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ namespace ConsoleBsp
     {
       string fileContent = File.ReadAllText(path);
 
-      var walls = JsonConvert.DeserializeObject<List<Line2D>>(fileContent);
+      var walls = JsonConvert.DeserializeObject<List<Line2d>>(fileContent);
 
       walls.ForEach(w => Walls.Append(w));
     }

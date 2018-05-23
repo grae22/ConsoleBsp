@@ -1,17 +1,22 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleBsp
+﻿namespace ConsoleBsp
 {
-  internal interface IMap
+  internal class PointClassifier
   {
     //---------------------------------------------------------------------------------------------
 
-    IEnumerable<Line2d> Walls { get; }
+    public enum Classification
+    {
+      InFront,
+      Behind,
+      Coincident
+    }
 
     //---------------------------------------------------------------------------------------------
 
-    void LoadFromFile(string path);
-    void SaveToFile(string path);
+    public static Classification ClassifyPointToLine(Point2d point, Line2d line)
+    {
+      return Classification.Behind;
+    }
 
     //---------------------------------------------------------------------------------------------
   }
