@@ -13,9 +13,21 @@
 
     //---------------------------------------------------------------------------------------------
 
-    public static Classification ClassifyPointToLine(Point2d point, Line2d line)
+    public static Classification ClassifyPointToLine(in Point2d point, in Line2d line)
     {
-      return Classification.Behind;
+      var s = (line.Equation.A * point.X) + (line.Equation.B * point.Y) + line.Equation.C;
+
+      if (s > double.Epsilon)
+      {
+        return Classification.Behind;
+      }
+
+      if (s < -double.Epsilon)
+      {
+        return Classification.InFront;
+      }
+
+      return Classification.Coincident;
     }
 
     //---------------------------------------------------------------------------------------------
