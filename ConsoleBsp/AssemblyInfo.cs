@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("ConsoleBepTest")]
+[assembly: InternalsVisibleTo("ConsoleBspTest")]

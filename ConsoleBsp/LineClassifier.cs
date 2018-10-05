@@ -14,7 +14,7 @@
 
     //---------------------------------------------------------------------------------------------
 
-    public static Classification ClassifyLineToLine(Line2d line1, Line2d line2)
+    public static Classification ClassifyLineToLine(in Line2d line1, in Line2d line2)
     {
       var v1Classification = PointClassifier.ClassifyPointToLine(line1.Vertex1, line2);
       var v2Classification = PointClassifier.ClassifyPointToLine(line1.Vertex2, line2);

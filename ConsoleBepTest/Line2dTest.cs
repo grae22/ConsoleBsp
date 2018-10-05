@@ -12,20 +12,20 @@ namespace ConsoleBepTest
     public void Split_GivenIntersectingLine_ShouldReturnTwoNewLines()
     {
       // Arrange.
-      var v1 = new Point2d(-10, 0);
-      var v2 = new Point2d(10, 0);
+      var v1 = new Point2d(-10, 100);
+      var v2 = new Point2d(10, 100);
       var testObject = new Line2d(v1, v2);
 
-      v1 = new Point2d(0, -10);
-      v2 = new Point2d(0, 10);
+      v1 = new Point2d(0, -110);
+      v2 = new Point2d(0, 110);
       var intersectingLine = new Line2d(v1, v2);
 
-      v1 = new Point2d(-10, 0);
-      v2 = new Point2d(0, 0);
+      v1 = new Point2d(-10, 100);
+      v2 = new Point2d(0, 100);
       var expectedNewLine1 = new Line2d(v1, v2);
 
-      v1 = new Point2d(0, 0);
-      v2 = new Point2d(10, 0);
+      v1 = new Point2d(0, 100);
+      v2 = new Point2d(10, 100);
       var expectedNewLine2 = new Line2d(v1, v2);
 
       // Act.

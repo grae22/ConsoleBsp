@@ -1,4 +1,6 @@
-﻿namespace ConsoleBsp
+﻿using ConsoleBsp.Extensions;
+
+namespace ConsoleBsp
 {
   internal struct Line2d
   {
@@ -63,24 +65,27 @@
     {
       double crossX = 0;
       double crossY = 0;
-      double divider = (hyperplane.Equation.A * hyperplane.Equation.B) - (hyperplane.Equation.B * hyperplane.Equation.A);
+      double divider = (hyperplane.Equation.A * Equation.B) - (hyperplane.Equation.B * Equation.A);
 
       // Calculate cross x & y.
-      if (MathUtils.IsZero(divider))
+      if (divider.IsZero())
       {
-        if (MathUtils.IsZero(Equation.A))
+        if (Equation.A.IsZero())
         {
           crossX = Vertex1.X;
         }
-        if (MathUtils.IsZero(Equation.B))
+
+        if (Equation.B.IsZero())
         {
           crossY = Vertex1.Y;
         }
-        if (MathUtils.IsZero(hyperplane.Equation.A))
+
+        if (hyperplane.Equation.A.IsZero())
         {
           crossY = -hyperplane.Equation.B;
         }
-        if (MathUtils.IsZero(hyperplane.Equation.B))
+
+        if (hyperplane.Equation.B.IsZero())
         {
           crossX = hyperplane.Equation.C;
         }
