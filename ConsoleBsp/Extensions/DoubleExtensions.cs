@@ -10,5 +10,15 @@ namespace ConsoleBsp.Extensions
     {
       return Math.Abs(value) < double.Epsilon;
     }
+
+    public static bool IsZero(this double? value, double epsilon = Epsilon)
+    {
+      if (!value.HasValue)
+      {
+        return false;
+      }
+
+      return Math.Abs(value.Value) < double.Epsilon;
+    }
   }
 }
