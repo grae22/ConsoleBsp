@@ -2,7 +2,7 @@
 
 namespace ConsoleBsp
 {
-  internal struct Line2d
+  internal class Line2d
   {
     //---------------------------------------------------------------------------------------------
 
@@ -31,24 +31,29 @@ namespace ConsoleBsp
 
     //---------------------------------------------------------------------------------------------
 
-    public static bool operator ==(Line2d l1, Line2d l2)
+    public static bool operator ==(in Line2d l1, in Line2d l2)
     {
-      return l1.Vertex1 == l2.Vertex1 &&
-             l1.Vertex2 == l2.Vertex2;
+      return l1.Vertex1 == l2?.Vertex1 &&
+             l1.Vertex2 == l2?.Vertex2;
     }
 
     //---------------------------------------------------------------------------------------------
     
-    public static bool operator !=(Line2d l1, Line2d l2)
+    public static bool operator !=(in Line2d l1, in Line2d l2)
     {
-      return !(l1.Vertex1 == l2.Vertex1 &&
-               l1.Vertex2 == l2.Vertex2);
+      return !(l1.Vertex1 == l2?.Vertex1 &&
+               l1.Vertex2 == l2?.Vertex2);
     }
 
     //---------------------------------------------------------------------------------------------
 
     public override bool Equals(object other)
     {
+      if (other is Line2d otherAsLine)
+      {
+        return this == otherAsLine;
+      }
+
       return base.Equals(other);
     }
 
@@ -61,7 +66,7 @@ namespace ConsoleBsp
 
     //---------------------------------------------------------------------------------------------
 
-    public Line2d[] Split(Line2d hyperplane)
+    public Line2d[] Split(in Line2d hyperplane)
     {
       double crossX = 0;
       double crossY = 0;
