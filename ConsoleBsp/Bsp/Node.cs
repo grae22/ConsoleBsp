@@ -7,6 +7,8 @@ namespace ConsoleBsp.Bsp
   {
     public IReadOnlyList<Line2d> Lines => _lines.AsReadOnly();
 
+    public Line2d Hyperplane { get; }
+
     public Node NodeBehind { get; private set; }
     public Node NodeInFront { get; private set; }
   
@@ -14,6 +16,8 @@ namespace ConsoleBsp.Bsp
 
     public Node(in Line2d hyperplane)
     {
+      Hyperplane = hyperplane ?? throw new ArgumentNullException(nameof(hyperplane));
+
       AddLine(hyperplane);
     }
 

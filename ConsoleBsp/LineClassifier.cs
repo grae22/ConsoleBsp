@@ -9,10 +9,13 @@
       InFront,
       Behind,
       Spanning,     // Not "intersecting"! Spanning the plane defined by the line.
+      Intersecting,
       Coincident
     }
 
     //---------------------------------------------------------------------------------------------
+
+    // TODO: This doesn't check the lines end-points... each line is effectively infinite.
 
     public static Classification ClassifyLineToLine(in Line2d line1, in Line2d line2)
     {
@@ -55,6 +58,13 @@
           }
 
           return Classification.Behind;
+        }
+
+        bool linesIntersect = (line1.Split(line2) != null);   // TODO: Optimise.
+
+        if (linesIntersect)
+        {
+          return Classification.Intersecting;
         }
 
         return Classification.Spanning;

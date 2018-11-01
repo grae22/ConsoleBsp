@@ -6,25 +6,35 @@ namespace ConsoleBsp.Bsp
 {
   internal class Tree
   {
-    //---------------------------------------------------------------------------------------------
+    private readonly Node _rootNode;
 
-    public Tree(in List<Line2d> lines)
+    public Tree(in IReadOnlyList<Line2d> lines)
     {
       if (lines.Count == 0)
       {
         return;
       }
 
-      var node = new Node(lines[0]);
+      _rootNode = new Node(lines[0]);
 
-      lines.RemoveAt(0);
-      
-      BuildTree(node, lines);
+      BuildTree(
+        _rootNode,
+        lines.Skip(1));
     }
 
-    //---------------------------------------------------------------------------------------------
+    public Line2d FindFirstIntersectingLine(in Line2d ray)
+    {
+      var intersectingLines = new List<Line2d>();
 
-    private void BuildTree(
+      FindIntersectingLinesRecursive(
+        ray,
+        _rootNode,
+        intersectingLines);
+
+      return intersectingLines.Any() ? intersectingLines[0] : null;
+    }
+
+    private static void BuildTree(
       in Node parent,
       in IEnumerable<Line2d> lines)
     {
@@ -33,7 +43,7 @@ namespace ConsoleBsp.Bsp
         return;
       }
 
-      Line2d hyperplane = parent.Lines[0];
+      Line2d hyperplane = parent.Hyperplane;
 
       var linesBehind = new List<Line2d>();
       var linesInFront = new List<Line2d>();
@@ -98,6 +108,28 @@ namespace ConsoleBsp.Bsp
       }
     }
 
-    //---------------------------------------------------------------------------------------------
+    private void FindIntersectingLinesRecursive(
+      in Line2d ray,
+      in Node node,
+      in List<Line2d> intersectingLines)
+    {
+      Line2d localRay = ray;
+
+      intersectingLines
+        .AddRange(
+          node
+            .Lines
+            .Where(l => LineClassifier.ClassifyLineToLine(localRay, l) == LineClassifier.Classification.Spanning));
+
+      if (node.NodeBehind == null)
+      {
+        return;
+      }
+      
+      FindIntersectingLinesRecursive(
+        ray,
+        node.NodeBehind,
+        intersectingLines);
+    }
   }
 }

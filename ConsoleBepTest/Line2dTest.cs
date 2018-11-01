@@ -67,5 +67,26 @@ namespace ConsoleBepTest
     }
 
     //---------------------------------------------------------------------------------------------
+    
+    [Test]
+    public void Split_GivenNonIntersectingLine2_ShouldReturnNull()
+    {
+      // Arrange.
+      var v1 = new Point2d(20, 20);
+      var v2 = new Point2d(20, -20);
+      var testObject = new Line2d(v1, v2);
+
+      v1 = new Point2d(-10, 0);
+      v2 = new Point2d(10, 0);
+      var nonIntersectingLine = new Line2d(v1, v2);
+
+      // Act.
+      Line2d[] result = testObject.Split(nonIntersectingLine);
+
+      // Assert.
+      Assert.Null(result);
+    }
+
+    //---------------------------------------------------------------------------------------------
   }
 }
